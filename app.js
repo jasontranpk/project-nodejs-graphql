@@ -35,6 +35,7 @@ const fileFilter = (req, file, cb) => {
 
 const app = express();
 app.use(bodyParser.json());
+
 app.use(
 	multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+
 app.use(auth);
 
 app.put('/post-image', (req, res, next) => {
@@ -101,6 +103,7 @@ app.use((error, req, res, next) => {
 	const data = error.data;
 	res.status(status).json({ message: message, data: data });
 });
+
 mongoose
 	.connect(process.env.MONGODB_URI)
 	.then((result) => {
